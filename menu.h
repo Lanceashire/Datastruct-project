@@ -3,7 +3,6 @@
 
 #include "common.h"
 
-void MainMenu(int role, BookList *bL, BookCopyList *cL,
-              ReaderList *rL, BorrowList *brL);
+void MainMenu(int role, BookList *bL, ReaderList *rL, BorrowList *brL);
 
 #endif

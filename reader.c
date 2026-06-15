@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include "reader.h"
-#include "hash.h"
 
 static const char *role_name(int role) {
     if (role == 1) return "管理员";
@@ -21,7 +20,7 @@ static void print_header(void) {
 
 void AddReader(ReaderList *L, Reader r) {
     if (L->length >= MAX_READER) {
-        printf("读者表已满。\n");
+        printf("存储空间不足，无法添加读者。\n");
         return;
     }
     if (SearchReader(L, r.readerId)) {
@@ -29,33 +28,36 @@ void AddReader(ReaderList *L, Reader r) {
         return;
     }
     L->data[L->length++] = r;
-    RebuildReaderHash(L);
     printf("读者添加成功。\n");
 }
 
 int DelReader(ReaderList *L, int readerId) {
-    int index = FindReaderIndex(readerId);
     int i;
-    if (index < 0) return 0;
-    for (i = index; i < L->length - 1; i++) L->data[i] = L->data[i + 1];
-    L->length--;
-    RebuildReaderHash(L);
-    return 1;
+    for (i = 0; i < L->length; i++) {
+        if (L->data[i].readerId == readerId) {
+            int j;
+            for (j = i; j < L->length - 1; j++)
+                L->data[j] = L->data[j + 1];
+            L->length--;
+            return 1;
+        }
+    }
+    return 0;
 }
 
 int ModReader(ReaderList *L, int readerId, Reader newReader) {
-    int index = FindReaderIndex(readerId);
-    if (index < 0) return 0;
+    Reader *target = SearchReader(L, readerId);
+    if (!target) return 0;
     newReader.readerId = readerId;
-    L->data[index] = newReader;
-    RebuildReaderHash(L);
+    *target = newReader;
     return 1;
 }
 
 Reader *SearchReader(ReaderList *L, int readerId) {
-    int index = FindReaderIndex(readerId);
-    if (index < 0 || index >= L->length) return NULL;
-    return &L->data[index];
+    int i;
+    for (i = 0; i < L->length; i++)
+        if (L->data[i].readerId == readerId) return &L->data[i];
+    return NULL;
 }
 
 void ShowAllReader(ReaderList *L) {
@@ -98,21 +100,30 @@ void ReaderManage(ReaderList *L) {
             printf("性别："); scanf("%4s", r.gender);
             printf("电话："); scanf("%14s", r.phone);
             printf("身份（1管理员/2教师/3学生）："); scanf("%d", &r.role);
-            if (r.role < 1 || r.role > 3) printf("身份编号无效。\n");
-            else if (choice == 1) AddReader(L, r);
-            else printf(ModReader(L, id, r) ? "修改成功。\n" : "修改失败。\n");
+            if (r.role < 1 || r.role > 3) {
+                printf("身份编号无效。\n");
+            } else if (choice == 1) {
+                AddReader(L, r);
+            } else {
+                printf(ModReader(L, id, r) ? "修改成功。\n" : "修改失败。\n");
+            }
         } else if (choice == 2) {
             int id;
             printf("读者编号："); scanf("%d", &id);
             printf(DelReader(L, id) ? "删除成功。\n" : "编号不存在。\n");
         } else if (choice == 4) {
             int id;
-            Reader *reader;
+            Reader *r;
             printf("读者编号："); scanf("%d", &id);
-            reader = SearchReader(L, id);
-            if (reader) { print_header(); print_reader(reader); }
-            else printf("编号不存在。\n");
-        } else if (choice == 5) ShowAllReader(L);
-        else printf("无效选项。\n");
+            r = SearchReader(L, id);
+            if (r) {
+                print_header();
+                print_reader(r);
+            } else printf("编号不存在。\n");
+        } else if (choice == 5) {
+            ShowAllReader(L);
+        } else {
+            printf("无效选项。\n");
+        }
     }
 }

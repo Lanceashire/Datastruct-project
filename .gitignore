@@ -1,6 +1,5 @@
 library
-library*.exe
+library.exe
 book.txt
 reader.txt
 borrow.txt
-copy.txt

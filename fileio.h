@@ -3,7 +3,7 @@
 
 #include "common.h"
 
-int LoadData(BookList *bL, BookCopyList *cL, ReaderList *rL, BorrowList *brL);
-int SaveData(BookList *bL, BookCopyList *cL, ReaderList *rL, BorrowList *brL);
+int LoadData(BookList *bL, ReaderList *rL, BorrowList *brL);
+int SaveData(BookList *bL, ReaderList *rL, BorrowList *brL);
 
 #endif /* FILEIO_H */
