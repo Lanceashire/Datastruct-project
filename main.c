@@ -8,15 +8,17 @@ int main(void) {
     BookList bL = {0};
     ReaderList rL = {0};
     BorrowList brL = {0};
-    int role;
 
     if (!LoadData(&bL, &rL, &brL)) {
         printf("数据加载失败。\n");
         return 1;
     }
 
-    role = Login();
-    MainMenu(role, &bL, &rL, &brL);
+    for (;;) {
+        int role = Login();
+        if (role == 0) break;
+        MainMenu(role, &bL, &rL, &brL);
+    }
 
     if (!SaveData(&bL, &rL, &brL)) {
         printf("数据保存失败。\n");

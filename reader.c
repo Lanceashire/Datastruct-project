@@ -75,7 +75,7 @@ void ReaderManage(ReaderList *L) {
     for (;;) {
         printf("\n========== 读者管理 ==========\n");
         printf("1. 添加读者\n2. 删除读者\n3. 修改读者\n");
-        printf("4. 按编号查询\n5. 浏览全部读者\n0. 返回\n");
+        printf("4. 按编号查询\n5. 浏览全部读者\n0. 返回上一级\n");
         printf("请输入选项：");
         if (scanf("%d", &choice) != 1) {
             scanf("%*s");

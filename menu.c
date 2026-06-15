@@ -7,13 +7,17 @@
 
 static void ReaderBookQuery(BookList *bL) {
     int choice;
-    printf("1. 按编号查询  2. 按书名查询  3. 浏览全部：");
+    printf("\n========== 图书查询 ==========\n");
+    printf("1. 按编号查询\n2. 按书名查询\n3. 浏览全部\n0. 返回上一级\n");
+    printf("请输入选项：");
     if (scanf("%d", &choice) != 1) {
         scanf("%*s");
         printf("输入格式错误。\n");
         return;
     }
-    if (choice == 1) {
+    if (choice == 0) {
+        return;
+    } else if (choice == 1) {
         int id;
         Book *book;
         printf("图书编号："); scanf("%d", &id);
@@ -41,7 +45,7 @@ void MainMenu(int role, BookList *bL, ReaderList *rL, BorrowList *brL) {
         if (role == 1) {
             printf("\n========== 管理员主菜单 ==========\n");
             printf("1. 图书信息管理\n2. 读者信息管理\n3. 借阅业务管理\n");
-            printf("4. 文件管理与文本编辑\n0. 退出系统\n");
+            printf("4. 文件管理与文本编辑\n0. 返回登录页面\n");
             printf("请输入选项：");
             if (scanf("%d", &choice) != 1) {
                 scanf("%*s");
@@ -58,7 +62,7 @@ void MainMenu(int role, BookList *bL, ReaderList *rL, BorrowList *brL) {
             int readerId;
             printf("\n========== 读者主菜单 ==========\n");
             printf("1. 查询图书\n2. 图书借阅/归还\n3. 查看个人借阅记录\n");
-            printf("4. 查看借阅提醒\n0. 退出系统\n");
+            printf("4. 查看借阅提醒\n0. 返回登录页面\n");
             printf("请输入选项：");
             if (scanf("%d", &choice) != 1) {
                 scanf("%*s");

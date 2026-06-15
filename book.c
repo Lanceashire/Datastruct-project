@@ -93,7 +93,7 @@ void BookManage(BookList *L) {
     for (;;) {
         printf("\n========== 图书管理 ==========\n");
         printf("1. 添加新图书\n2. 删除图书\n3. 修改图书信息\n");
-        printf("4. 按编号查询\n5. 按书名查询\n6. 浏览全部图书\n0. 返回\n");
+        printf("4. 按编号查询\n5. 按书名查询\n6. 浏览全部图书\n0. 返回上一级\n");
         printf("请输入选项：");
         if (scanf("%d", &choice) != 1) {
             scanf("%*s");

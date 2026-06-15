@@ -199,8 +199,9 @@ void FileEditMenu(void) {
     char content[MAX_LINE_LEN];
     char keyword[100];
 
-    printf("\n请输入要操作的文件名（如 book.txt）：");
+    printf("\n请输入要操作的文件名（如 book.txt，输入 0 返回）：");
     scanf("%99s", filename);
+    if (strcmp(filename, "0") == 0) return;
 
     while (1) {
         printf("\n========== 文件编辑 [%s] ==========\n", filename);

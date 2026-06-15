@@ -150,10 +150,10 @@ void BorrowManage(BookList *bL, ReaderList *rL, BorrowList *brL, int role) {
         printf("\n========== 借阅业务管理 ==========\n");
         if (role == 1) {
             printf("1. 办理图书借阅\n2. 办理图书归还\n3. 按图书查询记录\n");
-            printf("4. 按读者查询记录\n5. 图书借阅排行\n6. 临期/超期提醒\n0. 返回\n");
+            printf("4. 按读者查询记录\n5. 图书借阅排行\n6. 临期/超期提醒\n0. 返回上一级\n");
         } else {
             printf("1. 办理图书借阅\n2. 办理图书归还\n");
-            printf("4. 查看个人借阅记录\n6. 临期/超期提醒\n0. 返回\n");
+            printf("4. 查看个人借阅记录\n6. 临期/超期提醒\n0. 返回上一级\n");
         }
         printf("请输入选项：");
         if (scanf("%d", &choice) != 1) {
